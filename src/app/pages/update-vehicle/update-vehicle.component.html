@@ -1,0 +1,95 @@
+<div>
+    <form [formGroup]="formVehicle">
+        <div class="form-row">
+       
+            <div class="form-group col-md-12">
+                <div>
+                    <label>Plate</label>
+                </div>
+                <mat-form-field>
+                    <mat-label for="plate">Plate</mat-label>
+                    <input matInput id="plate" name="plate" formControlName="plate" required
+                        placeholder="Ex: ABC-1234">
+                    <mat-error *ngIf="formVehicle.controls['plate'].hasError('plate')">
+                        Campo não pode ser vazio
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group col-md-3">
+                <div>
+                    <label>Model</label>
+                </div>
+                <mat-form-field>
+                    <mat-label for="model">Model</mat-label>
+                    <mat-select  placeholder="Fiesta Sedan" id="model" name="model"
+                        formControlName="model" [(ngModel)]="selectedModel"
+                        (selectionChange)="onChangeValueModel($event)">
+                        <mat-option *ngFor="let model of listModel" [value]="model.id">{{model.name}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formVehicle.controls['model'].hasError('required')">
+                        Campo não selecionado
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+           
+                <div class="form-group col-md-6">
+                    <div>
+                        <label>Manufacturer</label>
+                    </div>
+                    <mat-form-field>
+                        <mat-label for="manufacturer">Manufacturer</mat-label>
+                        <mat-select  placeholder="Mercedez-Benz" id="manufacturer" name="manufacturer" formControlName="manufacturer"
+                            [(ngModel)]="selectedManufacturer" (selectionChange)="onChangeValueManufacturer($event)">
+                            <mat-option *ngFor="let manufacturer of listaManufacturer" [value]="manufacturer.id">
+                                {{manufacturer.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formVehicle.controls['manufacturer'].hasError('required')">
+                            Campo não selecionado
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <div>
+                        <label>Color</label>
+                    </div>
+                    <mat-form-field>
+                        <mat-label for="color">Color</mat-label>
+                        <input matInput id="color" name="color" formControlName="color" required
+                            placeholder="Ex: Black">
+                        <mat-error *ngIf="formVehicle.controls['color'].hasError('color')">
+                            Campo não pode ser vazio
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+               
+                <div class="form-group col-md-12">
+                    <div>
+                        <label>Status</label>
+                    </div>
+                    
+                        <mat-radio-group id="status" name="status" formControlName="status" [(ngModel)]="statusChecked">
+                           <mat-radio-button *ngFor="let aux of listStatus" [value]="aux.id">{{aux.name}}</mat-radio-button>
+                          </mat-radio-group>
+                    
+                </div>
+                
+               
+      
+                
+        <div class="form-group col-md-1">
+            <button class="btn btn-success btn-middle" [disabled]="disableButtonSave" (click)="onSubmit()">Salvar</button>
+            <button class="btn btn-success btn-middle"  (click)="reset()">Reset All</button>
+        </div>
+    
+
+    </div>
+
+    </form>
+    
+
+    
+</div>

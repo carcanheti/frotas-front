@@ -1,0 +1,73 @@
+<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true"
+                      [positionGloballyCenter]="true" [displayProgressSpinner]="displayProgressSpinner">
+</app-progress-spinner>
+
+<div>
+
+        <div class="form-group col-md-1">
+            <button class="btn btn-success btn-middle"  (click)="reset()">Limpar</button>
+            <button class="btn btn-success btn-middle" [disabled]="disableSave" (click)="onCreate()">Add Vehicle +</button>
+        </div>
+
+
+    <div class="form-group col-md-12">
+        <mat-form-field>
+            <mat-label for="filterVehicle">plate search</mat-label>
+            <input id="filterVehicle" name="filterVehicle" [(ngModel)]="filterValue" matInput (keyup)="applyFilter($event)" placeholder="plate search">
+        </mat-form-field>
+    </div>
+
+
+    <div class="form-group col-md-10">
+        <div class="mat-elevation-z8">
+            <table mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" aria-describedby="Table Vehicle">
+
+                <ng-container matColumnDef="plate">
+                    <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header > Plate </th>
+                    <td mat-cell *matCellDef="let row"> {{row.plate}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="model">
+                    <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+                    <td mat-cell *matCellDef="let row"> {{row.model}} </td>
+                </ng-container>
+
+
+               
+                <ng-container matColumnDef="manufacturer">
+                    <th scope="col" mat-header-cell *matHeaderCellDef > Manufacturer </th>
+                    <td mat-cell *matCellDef="let row"> {{row.manufacturer}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th scope="col" mat-header-cell *matHeaderCellDef > Status </th>
+                    <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th scope="col" mat-header-cell *matHeaderCellDef >Action</th>
+                    <td mat-cell *matCellDef="let row">
+                        <button class="btn btn-success btn-middle" (click)="getRecord(row)" [disabled]="disableEdit"></button>  
+                    </td>
+                    <td mat-cell *matCellDef="let row">
+                        <button class="btn btn-success btn-middle" (click)="getRecord(row)" [disabled]="disableDelete"></button>  
+                    </td>
+                </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Sem resultados para o filtro aplicado
+                    </td>
+                </tr>
+            </table>
+
+            <mat-paginator [length]="resultsLength" [pageSizeOptions]="pageSize"></mat-paginator>
+        </div>
+    </div>
+
+</div>
